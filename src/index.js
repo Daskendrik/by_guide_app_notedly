@@ -6,10 +6,22 @@ const port = process.env.port || 4000; // переменная отвечает 
 // app.get('/', (req,res) => res.send('Privetiki! =)')); //используем метод гет объекта эп, чтобы отправить ответ
 // app.listen(port, () => console.log(`Прослушиваем порт http://localhost:${port}!`)) // приложение слушает порт из константы
 
+//типо заглушки временной
+let notes = [
+    {id: '1', content: 'This is a note 1', author: 'Adam 1'},
+    {id: '2', content: 'This is a note 2', author: 'Adam 2'},
+    {id: '3', content: 'This is a note 3', author: 'Adam 3'}
+];
+
+
+
+
 //Построение схемы с использованием языка схем GraphQL стр 43
 const typeDefs = gql`
     type Query {
-        hello: String
+        hello: String!
+        notes: [Note!]!
+        note(id:ID!): Note!
     }
     type Pizza {
         id: ID!
@@ -17,13 +29,36 @@ const typeDefs = gql`
         clices: Int!
         toppings: [String]
     }
+    type Note {
+        id: ID!
+        content: String!
+        author: String!
+    }
+    type Mutation {
+        newNote(content: String!): Note!
+    } 
 `;
 //Добавили распознователь
 const resolvers = {
  Query: {
-    hello: () => 'Hello world!'
+    hello: () => 'Hello world!',
+    notes: () => notes,
+    note: (parent, args) => {
+        return notes.find(note => note.id === args.id);
+    }
+ },
+ Mutation: {
+     newNote: (parent, args) => {
+         let noteValue = {
+             id: String(notes.length + 1),
+             content: args.content, 
+             author: 'Anna'
+         };
+         notes.push(noteValue);
+         return noteValue;
+     }
  }
- };
+};
 
 //Настройка Apollo Server
 const server = new ApolloServer({ typeDefs, resolvers });
@@ -35,4 +70,3 @@ app.listen({port}, () =>
     console.log(`Мы запсутили GraphQL Server на нашем порте`)
 );
 
-//47 стр
