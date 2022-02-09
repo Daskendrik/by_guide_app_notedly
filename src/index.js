@@ -13,6 +13,11 @@ let notes = [
     {id: '3', content: 'This is a note 3', author: 'Adam 3'}
 ];
 
+let allpizza = [
+    {id: '1', size: 15, clices: 4, toppings: ['Помидоры']},
+    {id: '1', size: 10, clices: 6, toppings: ['Помидоры']}
+];
+
 
 
 
@@ -22,6 +27,8 @@ const typeDefs = gql`
         hello: String!
         notes: [Note!]!
         note(id:ID!): Note!
+        allpizza: [Pizza!]!
+        pizza(id:ID): Pizza!
     }
     type Pizza {
         id: ID!
@@ -45,7 +52,11 @@ const resolvers = {
     notes: () => notes,
     note: (parent, args) => {
         return notes.find(note => note.id === args.id);
-    }
+    },
+    allpizza: () => allpizza,
+    pizza: (parent, args) => {
+        return allpizza.find(pizza => pizza.id === args.id);
+    },
  },
  Mutation: {
      newNote: (parent, args) => {
