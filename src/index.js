@@ -3,6 +3,11 @@ const {ApolloServer, gql} = require('apollo-server-express'); //включили
 const app = express(); //создали объект
 const port = process.env.port || 4000; // переменная отвечает за порт, если его нет, то локально
 
+//подключаем базу данных
+require('dotenv').config(); 
+const db = require('./db');
+const DB_HOST = process.env.DB_HOST; // Сохраняем значение DB_HOST в виде переменной
+db.connect(DB_HOST);
 // app.get('/', (req,res) => res.send('Privetiki! =)')); //используем метод гет объекта эп, чтобы отправить ответ
 // app.listen(port, () => console.log(`Прослушиваем порт http://localhost:${port}!`)) // приложение слушает порт из константы
 
