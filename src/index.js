@@ -3,6 +3,8 @@ const {ApolloServer, gql} = require('apollo-server-express'); //включили
 const app = express(); //создали объект
 const port = process.env.port || 4000; // переменная отвечает за порт, если его нет, то локально
 
+//испорт модели бд
+const models = require('./models'); 
 //подключаем базу данных
 require('dotenv').config(); 
 const db = require('./db');
