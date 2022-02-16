@@ -14,11 +14,11 @@ db.connect(DB_HOST);
 // app.listen(port, () => console.log(`Прослушиваем порт http://localhost:${port}!`)) // приложение слушает порт из константы
 
 //типо заглушки временной
-let notes = [
-    {id: '1', content: 'This is a note 1', author: 'Adam 1'},
-    {id: '2', content: 'This is a note 2', author: 'Adam 2'},
-    {id: '3', content: 'This is a note 3', author: 'Adam 3'}
-];
+// let notes = [
+//     {id: '1', content: 'This is a note 1', author: 'Adam 1'},
+//     {id: '2', content: 'This is a note 2', author: 'Adam 2'},
+//     {id: '3', content: 'This is a note 3', author: 'Adam 3'}
+// ];
 
 let allpizza = [
     {id: '1', size: 15, clices: 4, toppings: ['Помидоры']},
@@ -56,7 +56,9 @@ const typeDefs = gql`
 const resolvers = {
  Query: {
     hello: () => 'Hello world!',
-    notes: () => notes,
+    notes: async () => {
+        return await models.Note.find();
+      },
     note: (parent, args) => {
         return notes.find(note => note.id === args.id);
     },

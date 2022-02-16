@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const db = require('./db');
 const models = require('./models');
-
+db.connect(DB_HOST);
 // Run our server on a port specified in our .env file or port 4000
 const port = process.env.PORT || 4000;
 const DB_HOST = process.env.DB_HOST;

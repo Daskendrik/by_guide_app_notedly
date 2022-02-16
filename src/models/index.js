@@ -1,5 +1,5 @@
 const Note = require('./note');
- const models = { 
+const models = { 
  Note
- };
- module.exports = models;
+};
+module.exports = models;
