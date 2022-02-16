@@ -1,9 +1,5 @@
 // Запросим библиотеку mongoose 
 const mongoose = require('mongoose');
-// Определяем схему БД заметки
-const noteSchema = new mongoose.Schema();
-// Определяем модель 'Note' со схемой
-const Note = mongoose.model('Note', noteSchema);
 
 // Определяем схему БД заметки
 const noteSchema = new mongoose.Schema(
@@ -23,5 +19,8 @@ const noteSchema = new mongoose.Schema(
         }
 );
            
+
+// Определяем модель 'Note' со схемой
+const Note = mongoose.model('Note', noteSchema);
 // Экспортируем модуль
 module.exports = Note;
