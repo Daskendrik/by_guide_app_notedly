@@ -1,5 +1,6 @@
 const express = require('express'); //установили зависимость экспресса (подклюили)
-const {ApolloServer, gql} = require('apollo-server-express'); //включили пакет 
+const {ApolloServer} = require('apollo-server-express'); //включили пакет 
+const typeDefs = require('./schema');
 const app = express(); //создали объект
 const port = process.env.port || 4000; // переменная отвечает за порт, если его нет, то локально
 
@@ -29,29 +30,7 @@ let allpizza = [
 
 
 //Построение схемы с использованием языка схем GraphQL стр 43
-const typeDefs = gql`
-    type Query {
-        hello: String!
-        notes: [Note!]!
-        note(id:ID!): Note!
-        allpizza: [Pizza!]!
-        pizza(id:ID): Pizza!
-    }
-    type Pizza {
-        id: ID!
-        size: String!
-        clices: Int!
-        toppings: [String]
-    }
-    type Note {
-        id: ID!
-        content: String!
-        author: String!
-    }
-    type Mutation {
-        newNote(content: String!): Note!
-    } 
-`;
+
 //Добавили распознователь
 const resolvers = {
  Query: {
@@ -62,6 +41,8 @@ const resolvers = {
     note: async (parent, args) => {
         return await models.Note.findById(args.id);
     },
+   
+
     allpizza: () => allpizza,
     pizza: (parent, args) => {
         return allpizza.find(pizza => pizza.id === args.id);
