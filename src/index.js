@@ -1,6 +1,6 @@
 const express = require('express'); //установили зависимость экспресса (подклюили)
 const {ApolloServer} = require('apollo-server-express'); //включили пакет 
-const typeDefs = require('./schema');
+const typeDefs = require('./schema');// импорт схемы
 const app = express(); //создали объект
 const port = process.env.port || 4000; // переменная отвечает за порт, если его нет, то локально
 
